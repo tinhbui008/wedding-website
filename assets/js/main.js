@@ -296,6 +296,34 @@
     ]
   });
 
+  // ('.btn-send-email').onClick({
+  //   console.log("hahahah");
+  // });
 
 
+  $( ".btn" ).on( "click", function() {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.set('Authorization', 'Basic ' + btoa('fe95810108341da004b9ab9bbe357cc5'+":" +'1c1190b72b2d844bb2dc08358a908bc2'));
+  
+    const data = JSON.stringify({
+      "Messages": [{
+        "From": {"Email": "trungtinh130296@gmail.com", "Name": "Tinh Bui"},
+        "To": [{"Email": "buitrungtinh130296@gmail.com", "Name": "Tinh Bui"}],
+        "Subject": subject,
+        "TextPart": message
+      }]
+    });
+  
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: data,
+    };
+    alert('Đã gửi lời chúc thành công!, Cảm ơn bạn đã gửi lời chúc đến chúng tôi')
+    fetch("https://api.mailjet.com/v3.1/send", requestOptions)
+      .then(response => alert('Đã gửi lời chúc thành công!, Cảm ơn bạn đã gửi lời chúc đến chúng tôi'))
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  });
 })(jQuery);
